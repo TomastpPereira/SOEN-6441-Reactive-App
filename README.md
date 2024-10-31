@@ -7,5 +7,5 @@ In the Tasks field, enter run.
 Click OK to save.
 Select your configuration from the dropdown in the top right and click Run.
 
-#how to use
+# how to use
 the application is accessible at http://localhost:9000
