@@ -1,0 +1,9 @@
+[debug] > Exec(;play ;run, None, None)
+[debug] > Exec(play, None, None)
+[error] Not a valid command: play (similar: apply, last, alias)
+[error] Not a valid project ID: play
+[error] Expected ':'
+[error] Not a valid key: play (similar: playStop, playRoutes, playReload)
+[error] play
+[error]     ^
+[debug] > Exec(idea-shell, None, None)

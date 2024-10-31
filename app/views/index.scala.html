@@ -1,0 +1,10 @@
+@()
+
+@main("Welcome to Play") {
+  <h1>This is main page for 6441!</h1>
+  <form action="/submit" method="POST">
+    <label for="name">Enter your name:</label>
+    <input type="text" id="name" name="name" placeholder="Type here..." required>
+    <button type="submit">Submit</button>
+  </form>
+}
