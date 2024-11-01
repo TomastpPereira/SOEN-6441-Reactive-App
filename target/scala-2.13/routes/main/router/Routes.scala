@@ -17,6 +17,8 @@ class Routes(
   HomeController_0: controllers.HomeController,
   // @LINE:9
   Assets_1: controllers.Assets,
+  // @LINE:10
+  SearchController_2: controllers.SearchController,
   val prefix: String
 ) extends GeneratedRouter {
 
@@ -25,13 +27,15 @@ class Routes(
     // @LINE:6
     HomeController_0: controllers.HomeController,
     // @LINE:9
-    Assets_1: controllers.Assets
-  ) = this(errorHandler, HomeController_0, Assets_1, "/")
+    Assets_1: controllers.Assets,
+    // @LINE:10
+    SearchController_2: controllers.SearchController
+  ) = this(errorHandler, HomeController_0, Assets_1, SearchController_2, "/")
 
   def withPrefix(addPrefix: String): Routes = {
     val prefix = play.api.routing.Router.concatPrefix(addPrefix, this.prefix)
     router.RoutesPrefix.setPrefix(prefix)
-    new Routes(errorHandler, HomeController_0, Assets_1, prefix)
+    new Routes(errorHandler, HomeController_0, Assets_1, SearchController_2, prefix)
   }
 
   private val defaultPrefix: String = {
@@ -41,6 +45,7 @@ class Routes(
   def documentation = List(
     ("""GET""", this.prefix, """controllers.HomeController.index()"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """assets/""" + "$" + """file<.+>""", """controllers.Assets.versioned(path:String = "/public", file:Asset)"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """search/searchVideos""", """controllers.SearchController.searchVideos(query:String)"""),
     Nil
   ).foldLeft(Seq.empty[(String, String, String)]) { (s,e) => e.asInstanceOf[Any] match {
     case r @ (_,_,_) => s :+ r.asInstanceOf[(String, String, String)]
@@ -84,6 +89,24 @@ class Routes(
     )
   )
 
+  // @LINE:10
+  private lazy val controllers_SearchController_searchVideos2_route = Route("GET",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("search/searchVideos")))
+  )
+  private lazy val controllers_SearchController_searchVideos2_invoker = createInvoker(
+    SearchController_2.searchVideos(fakeValue[String]),
+    play.api.routing.HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.SearchController",
+      "searchVideos",
+      Seq(classOf[String]),
+      "GET",
+      this.prefix + """search/searchVideos""",
+      """""",
+      Seq()
+    )
+  )
+
 
   def routes: PartialFunction[RequestHeader, Handler] = {
   
@@ -97,6 +120,12 @@ class Routes(
     case controllers_Assets_versioned1_route(params@_) =>
       call(Param[String]("path", Right("/public")), params.fromPath[Asset]("file", None)) { (path, file) =>
         controllers_Assets_versioned1_invoker.call(Assets_1.versioned(path, file))
+      }
+  
+    // @LINE:10
+    case controllers_SearchController_searchVideos2_route(params@_) =>
+      call(params.fromQuery[String]("query", None)) { (query) =>
+        controllers_SearchController_searchVideos2_invoker.call(SearchController_2.searchVideos(query))
       }
   }
 }

@@ -40,5 +40,20 @@ package controllers {
   
   }
 
+  // @LINE:10
+  class ReverseSearchController(_prefix: => String) {
+    def _defaultPrefix: String = {
+      if (_prefix.endsWith("/")) "" else "/"
+    }
+
+  
+    // @LINE:10
+    def searchVideos(query:String): Call = {
+      
+      Call("GET", _prefix + { _defaultPrefix } + "search/searchVideos" + play.core.routing.queryString(List(Some(implicitly[play.api.mvc.QueryStringBindable[String]].unbind("query", query)))))
+    }
+  
+  }
+
 
 }

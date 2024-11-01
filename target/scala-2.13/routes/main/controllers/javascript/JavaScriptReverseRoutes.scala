@@ -50,5 +50,25 @@ package controllers.javascript {
   
   }
 
+  // @LINE:10
+  class ReverseSearchController(_prefix: => String) {
+
+    def _defaultPrefix: String = {
+      if (_prefix.endsWith("/")) "" else "/"
+    }
+
+  
+    // @LINE:10
+    def searchVideos: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.SearchController.searchVideos",
+      """
+        function(query0) {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "search/searchVideos" + _qS([(""" + implicitly[play.api.mvc.QueryStringBindable[String]].javascriptUnbind + """)("query", query0)])})
+        }
+      """
+    )
+  
+  }
+
 
 }
