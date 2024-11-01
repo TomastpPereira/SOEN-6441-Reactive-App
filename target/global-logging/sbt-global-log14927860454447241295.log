@@ -1,0 +1,24 @@
+[debug] > Exec(run, None, None)
+[debug] Evaluating tasks: Compile / run
+[debug] Running task... Cancel: Signal, check cycles: false, forcegc: true
+[debug] Running task... Cancel: Signal, check cycles: false, forcegc: true
+[info] compiling 1 Scala source and 4 Java sources to C:\Users\26565\OneDrive\桌面\comp6481\SOEN-6441-Reactive-App\target\scala-2.13\classes ...
+[error] C:\Users\26565\OneDrive\桌面\comp6481\SOEN-6441-Reactive-App\app\views\index.scala.html:28:23: not found: value items
+[error]         @for(video <- items) {
+[error]                       ^
+[error] one error found
+[error] (Compile / compileIncremental) Compilation failed
+[debug] Running task... Cancel: Signal, check cycles: false, forcegc: true
+[debug] Running task... Cancel: Signal, check cycles: false, forcegc: true
+[debug] Running task... Cancel: Signal, check cycles: false, forcegc: true
+[info] compiling 1 Scala source and 4 Java sources to C:\Users\26565\OneDrive\桌面\comp6481\SOEN-6441-Reactive-App\target\scala-2.13\classes ...
+[error] C:\Users\26565\OneDrive\桌面\comp6481\SOEN-6441-Reactive-App\app\views\index.scala.html:28:23: not found: value items
+[error]         @for(video <- items) {
+[error]                       ^
+[error] one error found
+[error] (Compile / compileIncremental) Compilation failed
+[debug] Running task... Cancel: Signal, check cycles: false, forcegc: true
+[debug] Running task... Cancel: Signal, check cycles: false, forcegc: true
+[debug] Forcing garbage collection...
+[success] Total time: 3455 s (57:35), completed Nov 1, 2024, 6:44:07 AM
+[debug] > Exec(idea-shell, None, None)
