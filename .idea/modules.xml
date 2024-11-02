@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/SOEN_6441_Reactive-App.iml" filepath="$PROJECT_DIR$/.idea/modules/SOEN_6441_Reactive-App.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SOEN_6441_Reactive-App.SOEN_6441_Reactive-App-build.iml" filepath="$PROJECT_DIR$/.idea/modules/SOEN_6441_Reactive-App.SOEN_6441_Reactive-App-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SOEN_6441_Reactive-App-build.iml" filepath="$PROJECT_DIR$/.idea/modules/SOEN_6441_Reactive-App-build.iml" />
     </modules>
   </component>
 </project>

@@ -1,5 +1,5 @@
 package controllers;
-import Models.Video;
+import models.Video;
 import com.google.inject.Inject;
 import play.mvc.Controller;
 import play.mvc.Result;

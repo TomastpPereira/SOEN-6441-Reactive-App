@@ -6,7 +6,8 @@
         <entry key="root">
           <value>
             <ProjectSettingsEntry>
-              <option name="confDir" value="C:\Users\26565\OneDrive\桌面\comp6481\SOEN-6441-Reactive-App\app" />
+              <option name="sourceDir" value="C:\Users\26565\OneDrive\桌面\comp6481\SOEN-6441-Reactive-App\app" />
+              <option name="confDir" value="C:\My Files\GitHub\SOEN-6441-Reactive-App\app" />
               <option name="templateImports">
                 <list>
                   <option value="_root_.play.twirl.api.TwirlFeatureImports._" />
@@ -36,7 +37,7 @@
                   <option value="play.libs.F" />
                 </list>
               </option>
-              <option name="uri" value="/C:/Users/26565/OneDrive/桌面/comp6481/SOEN-6441-Reactive-App" />
+              <option name="uri" value="/C:/My%20Files/GitHub/SOEN-6441-Reactive-App" />
             </ProjectSettingsEntry>
           </value>
         </entry>

@@ -1,12 +1,16 @@
-@import Models.Video
+@import models.Video
+@import views.html.navbar
 @(query: String, videos:java.util.List[Video])
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>YouTube Video</title>
   </head>
   <body>
+
+    @navbar("search")
+
     <h1>YouTube Video</h1>
     <h2>Plz type keywords to find a list of videos max 10</h2>
     <form action="/search/searchVideos" method="get">
