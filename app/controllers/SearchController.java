@@ -18,4 +18,5 @@ public class SearchController extends Controller {
         return ok(views.html.index.render(shModel.getSearchHistory()));
     }
 
+
 }
