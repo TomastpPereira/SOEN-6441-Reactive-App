@@ -53,6 +53,12 @@ package controllers {
       Call("GET", _prefix + { _defaultPrefix } + "search/searchVideos" + play.core.routing.queryString(List(Some(implicitly[play.api.mvc.QueryStringBindable[String]].unbind("query", query)))))
     }
   
+    // @LINE:14
+    def MoreStats(query:String): Call = {
+      
+      Call("GET", _prefix + { _defaultPrefix } + "search/MoreStats" + play.core.routing.queryString(List(Some(implicitly[play.api.mvc.QueryStringBindable[String]].unbind("query", query)))))
+    }
+  
   }
 
   // @LINE:13

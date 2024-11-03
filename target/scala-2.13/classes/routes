@@ -11,3 +11,4 @@ GET   /search/searchVideos   controllers.SearchController.searchVideos(query: St
 
 # Route for Part D
 GET   /sentiment   controllers.SubmissionSentimentController.showSentimentPage
+GET     /search/MoreStats          controllers.SearchController.MoreStats(query: String)
