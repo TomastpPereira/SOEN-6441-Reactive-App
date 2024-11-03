@@ -20,60 +20,69 @@ import play.api.data.Field
 import play.data._
 import play.core.j.PlayFormsMagicForJava._
 import scala.jdk.CollectionConverters._
-/*1.2*/import Models.Video
+/*1.2*/import models.Video
+/*2.2*/import views.html.navbar
+/*3.2*/import models.SearchResult
 
-object index extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,_root_.play.twirl.api.Format[play.twirl.api.HtmlFormat.Appendable]](play.twirl.api.HtmlFormat) with _root_.play.twirl.api.Template2[String,java.util.List[Video],play.twirl.api.HtmlFormat.Appendable] {
+object index extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,_root_.play.twirl.api.Format[play.twirl.api.HtmlFormat.Appendable]](play.twirl.api.HtmlFormat) with _root_.play.twirl.api.Template1[LinkedList[SearchResult],play.twirl.api.HtmlFormat.Appendable] {
 
   /**/
-  def apply/*2.2*/(query: String, videos:java.util.List[Video]):play.twirl.api.HtmlFormat.Appendable = {
+  def apply/*5.2*/(searchHistory: LinkedList[SearchResult]):play.twirl.api.HtmlFormat.Appendable = {
     _display_ {
       {
 
 
-Seq[Any](format.raw/*2.47*/("""
+Seq[Any](format.raw/*5.43*/("""
 
-"""),format.raw/*4.1*/("""<!DOCTYPE html>
-<html>
+
+"""),format.raw/*8.1*/("""<!DOCTYPE html>
+<html lang="en">
   <head>
     <title>YouTube Video</title>
   </head>
   <body>
-    <h1>YouTube Video</h1>
-    <h2>Plz type keywords to find a list of videos max 10</h2>
+
+    """),_display_(/*15.6*/navbar("search")),format.raw/*15.22*/("""
+
+    """),format.raw/*17.5*/("""<h1>YouTube Video</h1>
+    <h2>Enter Search Terms</h2>
+
     <form action="/search/searchVideos" method="get">
       <input type="text" name="query" placeholder="Enter keywords" required>
       <button type="submit">Search</button>
     </form>
 
-      """),_display_(if(query != null && !query.isEmpty())/*17.45*/ {_display_(Seq[Any](format.raw/*17.47*/("""
-        """),format.raw/*18.9*/("""<h2>Search Results for """"),_display_(/*18.34*/query),format.raw/*18.39*/(""""</h2>
+    """),_display_(/*25.6*/for(searchResult <- searchHistory) yield /*25.40*/ {_display_(Seq[Any](format.raw/*25.42*/("""
+      """),format.raw/*26.7*/("""<div>
+        <h2>Search Terms: """"),_display_(/*27.29*/searchResult/*27.41*/.query),format.raw/*27.47*/("""" <a href=""""),_display_(/*27.59*/routes/*27.65*/.SearchController.MoreStats(searchResult.query)),format.raw/*27.112*/(""""> morestats </a>
+</h2>
         <ul>
-        """),_display_(/*20.10*/for(i <- 0 until videos.size()) yield /*20.41*/ {_display_(Seq[Any](format.raw/*20.43*/("""
-          """),_display_(/*21.12*/defining(videos.get(i))/*21.35*/ { video =>_display_(Seq[Any](format.raw/*21.46*/("""
-            """),format.raw/*22.13*/("""<li>
-              <a href="https://www.youtube.com/watch?v="""),_display_(/*23.57*/video/*23.62*/.videoId),format.raw/*23.70*/("""">
-              """),_display_(/*24.16*/video/*24.21*/.title),format.raw/*24.27*/("""
-              """),format.raw/*25.15*/("""</a>
-              <br>
-              <a href="/youtube/channel/"""),_display_(/*27.42*/video/*27.47*/.channelId),format.raw/*27.57*/("""">
-                Channel: """),_display_(/*28.27*/video/*28.32*/.channelTitle),format.raw/*28.45*/("""
-              """),format.raw/*29.15*/("""</a>
-            </li>
-          """)))}),format.raw/*31.12*/("""
-        """)))}),format.raw/*32.10*/("""
-        """),format.raw/*33.9*/("""</ul>
-      """)))} else {null} ),format.raw/*34.8*/("""
+        """),_display_(/*30.10*/for(video <- searchResult.videos) yield /*30.43*/ {_display_(Seq[Any](format.raw/*30.45*/("""
+          """),format.raw/*31.11*/("""<li>
+            <a href="https://www.youtube.com/watch?v="""),_display_(/*32.55*/video/*32.60*/.videoId),format.raw/*32.68*/("""">
+            """),_display_(/*33.14*/video/*33.19*/.title),format.raw/*33.25*/("""
+            """),format.raw/*34.13*/("""</a>
+            <br>
+            <a href="/youtube/channel/"""),_display_(/*36.40*/video/*36.45*/.channelId),format.raw/*36.55*/("""">
+                Channel: """),_display_(/*37.27*/video/*37.32*/.channelTitle),format.raw/*37.45*/("""
+              """),format.raw/*38.15*/("""</a>
+          </li>
+        """)))}),format.raw/*40.10*/("""
+        """),format.raw/*41.9*/("""</ul>
+      </div>
+      <hr>
+      """)))}),format.raw/*44.8*/("""
 
-  """),format.raw/*36.3*/("""</body>
+  """),format.raw/*46.3*/("""</body>
 </html>
 """))
       }
     }
   }
 
-  def render(query:String,videos:java.util.List[Video]): play.twirl.api.HtmlFormat.Appendable = apply(query,videos)
+  def render(searchHistory:LinkedList[SearchResult]): play.twirl.api.HtmlFormat.Appendable = apply(searchHistory)
 
-  def f:((String,java.util.List[Video]) => play.twirl.api.HtmlFormat.Appendable) = (query,videos) => apply(query,videos)
+  def f:((LinkedList[SearchResult]) => play.twirl.api.HtmlFormat.Appendable) = (searchHistory) => apply(searchHistory)
 
   def ref: this.type = this
 
@@ -83,9 +92,9 @@ Seq[Any](format.raw/*2.47*/("""
               /*
                   -- GENERATED --
                   SOURCE: app/views/index.scala.html
-                  HASH: 99c49614c607a5a410925ef2090835d58ca02b21
-                  MATRIX: 610->1|956->23|1096->68|1126->72|1572->491|1612->493|1649->503|1701->528|1727->533|1785->564|1832->595|1872->597|1912->610|1944->633|1993->644|2035->658|2124->720|2138->725|2167->733|2213->752|2227->757|2254->763|2298->779|2392->846|2406->851|2437->861|2494->891|2508->896|2542->909|2586->925|2653->961|2695->972|2732->982|2789->996|2822->1002
-                  LINES: 23->1|28->2|33->2|35->4|48->17|48->17|49->18|49->18|49->18|51->20|51->20|51->20|52->21|52->21|52->21|53->22|54->23|54->23|54->23|55->24|55->24|55->24|56->25|58->27|58->27|58->27|59->28|59->28|59->28|60->29|62->31|63->32|64->33|65->34|67->36
+                  HASH: 77192d9b51053df7be6655e3fd4c55313680d19d
+                  MATRIX: 610->1|637->23|669->50|1018->81|1154->122|1186->128|1319->235|1356->251|1391->259|1674->516|1724->550|1764->552|1799->560|1861->595|1882->607|1909->613|1948->625|1963->631|2032->678|2108->727|2157->760|2197->762|2237->774|2324->834|2338->839|2367->847|2411->864|2425->869|2452->875|2494->889|2584->952|2598->957|2629->967|2686->997|2700->1002|2734->1015|2778->1031|2841->1063|2878->1073|2948->1113|2981->1119
+                  LINES: 23->1|24->2|25->3|30->5|35->5|38->8|45->15|45->15|47->17|55->25|55->25|55->25|56->26|57->27|57->27|57->27|57->27|57->27|57->27|60->30|60->30|60->30|61->31|62->32|62->32|62->32|63->33|63->33|63->33|64->34|66->36|66->36|66->36|67->37|67->37|67->37|68->38|70->40|71->41|74->44|76->46
                   -- GENERATED --
               */
           

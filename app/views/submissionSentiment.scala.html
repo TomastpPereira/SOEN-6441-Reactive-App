@@ -1,0 +1,19 @@
+@import views.html.navbar
+@()
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Submission Sentiment Analysis</title>
+    </head>
+    <body>
+
+        @navbar("submission-sentiment")
+
+        <h1>Submission Sentiment Analysis (Part D)</h1>
+
+        <form action="/analyze-sentiment" method="post">
+            <button type="submit">Analyze Sentiment</button>
+        </form>
+    </body>
+</html>
