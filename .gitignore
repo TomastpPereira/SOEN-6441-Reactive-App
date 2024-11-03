@@ -1,0 +1,74 @@
+# Ignore Scala and Java compiled output
+/target/
+/dist/
+
+# Logs
+*.log
+/logs/
+
+# SBT
+/.idea/
+/.vscode/
+/project/target/
+/project/project/
+/target/
+/lib_managed/
+/src_managed/
+/.history/
+/dist/
+/out/
+
+# Ivy and Coursier caches (SBT dependencies)
+/lib/
+~/.ivy2/cache
+~/.sbt/
+~/.coursier/cache
+/coursier/cache/
+
+# Play-specific files
+/conf/application.conf.orig
+/conf/routes.bak
+/conf/*.secret
+/logs/
+*.pid
+*.log
+
+# Node.js (if using frontend dependencies like npm, Yarn)
+/node_modules/
+/public/javascripts/node_modules/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# IntelliJ IDEA
+*.iml
+.idea/
+*.iws
+
+# VSCode
+.vscode/
+
+# Mac OS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Icon must end with two \r
+Icon
+
+# Windows thumbnail cache files
+Thumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Editor-specific files
+*.swp
+*.swo
