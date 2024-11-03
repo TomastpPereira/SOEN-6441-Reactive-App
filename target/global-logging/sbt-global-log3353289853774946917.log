@@ -8,3 +8,9 @@
 [info] done compiling
 [debug] Running task... Cancel: Signal, check cycles: false, forcegc: true
 [debug] Exporting web-assets:soen_6441_reactive-app
+[warn] Canceling execution...
+[debug] Forcing garbage collection...
+[error] Cancelled: run
+[error] Cancelled: run
+[error] Use 'last' for the full log.
+[debug] > Exec(idea-shell, None, None)
