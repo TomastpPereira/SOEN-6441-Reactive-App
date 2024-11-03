@@ -70,5 +70,25 @@ package controllers.javascript {
   
   }
 
+  // @LINE:13
+  class ReverseSubmissionSentimentController(_prefix: => String) {
+
+    def _defaultPrefix: String = {
+      if (_prefix.endsWith("/")) "" else "/"
+    }
+
+  
+    // @LINE:13
+    def showSentimentPage: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.SubmissionSentimentController.showSentimentPage",
+      """
+        function() {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "sentiment"})
+        }
+      """
+    )
+  
+  }
+
 
 }

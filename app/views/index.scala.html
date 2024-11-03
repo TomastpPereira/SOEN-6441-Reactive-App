@@ -1,36 +1,45 @@
-@import Models.Video
-@(query: String, videos:java.util.List[Video])
+@import models.Video
+@import views.html.navbar
+@import models.SearchResult
+
+@(searchHistory: LinkedList[SearchResult])
+
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>YouTube Video</title>
   </head>
   <body>
+
+    @navbar("search")
+
     <h1>YouTube Video</h1>
-    <h2>Plz type keywords to find a list of videos max 10</h2>
+    <h2>Enter Search Terms</h2>
+
     <form action="/search/searchVideos" method="get">
       <input type="text" name="query" placeholder="Enter keywords" required>
       <button type="submit">Search</button>
     </form>
 
-      @if(query != null && !query.isEmpty()) {
-        <h2>Search Results for "@query"</h2>
+    @for(searchResult <- searchHistory) {
+      <div>
+        <h2>Search Terms: "@searchResult.query"</h2>
         <ul>
-        @for(i <- 0 until videos.size()) {
-          @defining(videos.get(i)) { video =>
-            <li>
-              <a href="https://www.youtube.com/watch?v=@video.videoId">
-              @video.title
-              </a>
-              <br>
-              <a href="/youtube/channel/@video.channelId">
+        @for(video <- searchResult.videos) {
+          <li>
+            <a href="https://www.youtube.com/watch?v=@video.videoId">
+            @video.title
+            </a>
+            <br>
+            <a href="/youtube/channel/@video.channelId">
                 Channel: @video.channelTitle
               </a>
-            </li>
-          }
+          </li>
         }
         </ul>
+      </div>
+      <hr>
       }
 
   </body>

@@ -55,5 +55,20 @@ package controllers {
   
   }
 
+  // @LINE:13
+  class ReverseSubmissionSentimentController(_prefix: => String) {
+    def _defaultPrefix: String = {
+      if (_prefix.endsWith("/")) "" else "/"
+    }
+
+  
+    // @LINE:13
+    def showSentimentPage: Call = {
+      
+      Call("GET", _prefix + { _defaultPrefix } + "sentiment")
+    }
+  
+  }
+
 
 }

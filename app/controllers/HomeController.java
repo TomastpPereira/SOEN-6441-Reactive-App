@@ -2,6 +2,8 @@ package controllers;
 
 import play.mvc.*;
 
+import java.util.LinkedList;
+
 /**
  * This controller contains an action to handle HTTP requests
  * to the application's home page.
@@ -15,7 +17,7 @@ public class HomeController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
     public Result index() {
-        return ok(views.html.index.render("",null));
+        return ok(views.html.index.render(new LinkedList<>()));
     }
 
 }
