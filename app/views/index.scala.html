@@ -24,7 +24,8 @@
 
     @for(searchResult <- searchHistory) {
       <div>
-        <h2>Search Terms: "@searchResult.query"</h2>
+        <h2>Search Terms: "@searchResult.query" <a href="@routes.SearchController.MoreStats(searchResult.query)"> morestats </a>
+</h2>
         <ul>
         @for(video <- searchResult.videos) {
           <li>
