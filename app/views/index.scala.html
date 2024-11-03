@@ -1,6 +1,6 @@
 @import models.Video
 @import views.html.navbar
-@import controllers.SearchController.SearchResult
+@import models.SearchResult
 
 @(searchHistory: LinkedList[SearchResult])
 
@@ -15,7 +15,7 @@
     @navbar("search")
 
     <h1>YouTube Video</h1>
-    <h2>Plz type keywords to find a list of videos max 10</h2>
+    <h2>Enter Search Terms</h2>
 
     <form action="/search/searchVideos" method="get">
       <input type="text" name="query" placeholder="Enter keywords" required>
@@ -24,7 +24,7 @@
 
     @for(searchResult <- searchHistory) {
       <div>
-        <h2>Search Results for "@searchResult.query"</h2>
+        <h2>Search Terms: "@searchResult.query"</h2>
         <ul>
         @for(video <- searchResult.videos) {
           <li>
