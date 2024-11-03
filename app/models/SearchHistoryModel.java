@@ -49,6 +49,22 @@ public class SearchHistoryModel {
         }
         return videos;
     }
+    public JsonNode queryYoutube(String query,int Result_num){
+
+        JsonNode videosJson = null;
+
+        try {
+            videosJson = youtubeApiClient.searchVideos(query, Result_num);
+
+        } catch (IOException e) {
+            System.err.println("Network error: " + e.getMessage());
+        } catch (RuntimeException e) {
+            System.err.println("Error with API response: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Other Error: " + e.getMessage());
+        }
+        return videosJson;
+    }
 
     public void queryAndStore(String query){
         addSearchResult(query, queryYoutube(query));

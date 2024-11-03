@@ -51,6 +51,7 @@ class Routes(
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """assets/""" + "$" + """file<.+>""", """controllers.Assets.versioned(path:String = "/public", file:Asset)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """search/searchVideos""", """controllers.SearchController.searchVideos(query:String)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """sentiment""", """controllers.SubmissionSentimentController.showSentimentPage"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """search/MoreStats""", """controllers.SearchController.MoreStats(query:String)"""),
     Nil
   ).foldLeft(Seq.empty[(String, String, String)]) { (s,e) => e.asInstanceOf[Any] match {
     case r @ (_,_,_) => s :+ r.asInstanceOf[(String, String, String)]
@@ -130,6 +131,24 @@ class Routes(
     )
   )
 
+  // @LINE:14
+  private lazy val controllers_SearchController_MoreStats4_route = Route("GET",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("search/MoreStats")))
+  )
+  private lazy val controllers_SearchController_MoreStats4_invoker = createInvoker(
+    SearchController_2.MoreStats(fakeValue[String]),
+    play.api.routing.HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.SearchController",
+      "MoreStats",
+      Seq(classOf[String]),
+      "GET",
+      this.prefix + """search/MoreStats""",
+      """""",
+      Seq()
+    )
+  )
+
 
   def routes: PartialFunction[RequestHeader, Handler] = {
   
@@ -155,6 +174,12 @@ class Routes(
     case controllers_SubmissionSentimentController_showSentimentPage3_route(params@_) =>
       call { 
         controllers_SubmissionSentimentController_showSentimentPage3_invoker.call(SubmissionSentimentController_3.showSentimentPage)
+      }
+  
+    // @LINE:14
+    case controllers_SearchController_MoreStats4_route(params@_) =>
+      call(params.fromQuery[String]("query", None)) { (query) =>
+        controllers_SearchController_MoreStats4_invoker.call(SearchController_2.MoreStats(query))
       }
   }
 }
