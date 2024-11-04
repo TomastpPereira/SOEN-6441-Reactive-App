@@ -19,8 +19,6 @@ class Routes(
   Assets_1: controllers.Assets,
   // @LINE:10
   SearchController_2: controllers.SearchController,
-  // @LINE:13
-  SubmissionSentimentController_3: controllers.SubmissionSentimentController,
   val prefix: String
 ) extends GeneratedRouter {
 
@@ -31,15 +29,13 @@ class Routes(
     // @LINE:9
     Assets_1: controllers.Assets,
     // @LINE:10
-    SearchController_2: controllers.SearchController,
-    // @LINE:13
-    SubmissionSentimentController_3: controllers.SubmissionSentimentController
-  ) = this(errorHandler, HomeController_0, Assets_1, SearchController_2, SubmissionSentimentController_3, "/")
+    SearchController_2: controllers.SearchController
+  ) = this(errorHandler, HomeController_0, Assets_1, SearchController_2, "/")
 
   def withPrefix(addPrefix: String): Routes = {
     val prefix = play.api.routing.Router.concatPrefix(addPrefix, this.prefix)
     router.RoutesPrefix.setPrefix(prefix)
-    new Routes(errorHandler, HomeController_0, Assets_1, SearchController_2, SubmissionSentimentController_3, prefix)
+    new Routes(errorHandler, HomeController_0, Assets_1, SearchController_2, prefix)
   }
 
   private val defaultPrefix: String = {
@@ -50,7 +46,6 @@ class Routes(
     ("""GET""", this.prefix, """controllers.HomeController.index()"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """assets/""" + "$" + """file<.+>""", """controllers.Assets.versioned(path:String = "/public", file:Asset)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """search/searchVideos""", """controllers.SearchController.searchVideos(query:String)"""),
-    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """sentiment""", """controllers.SubmissionSentimentController.showSentimentPage"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """search/MoreStats""", """controllers.SearchController.MoreStats(query:String)"""),
     Nil
   ).foldLeft(Seq.empty[(String, String, String)]) { (s,e) => e.asInstanceOf[Any] match {
@@ -114,28 +109,10 @@ class Routes(
   )
 
   // @LINE:13
-  private lazy val controllers_SubmissionSentimentController_showSentimentPage3_route = Route("GET",
-    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("sentiment")))
-  )
-  private lazy val controllers_SubmissionSentimentController_showSentimentPage3_invoker = createInvoker(
-    SubmissionSentimentController_3.showSentimentPage,
-    play.api.routing.HandlerDef(this.getClass.getClassLoader,
-      "router",
-      "controllers.SubmissionSentimentController",
-      "showSentimentPage",
-      Nil,
-      "GET",
-      this.prefix + """sentiment""",
-      """ Route for Part D""",
-      Seq()
-    )
-  )
-
-  // @LINE:14
-  private lazy val controllers_SearchController_MoreStats4_route = Route("GET",
+  private lazy val controllers_SearchController_MoreStats3_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("search/MoreStats")))
   )
-  private lazy val controllers_SearchController_MoreStats4_invoker = createInvoker(
+  private lazy val controllers_SearchController_MoreStats3_invoker = createInvoker(
     SearchController_2.MoreStats(fakeValue[String]),
     play.api.routing.HandlerDef(this.getClass.getClassLoader,
       "router",
@@ -144,7 +121,7 @@ class Routes(
       Seq(classOf[String]),
       "GET",
       this.prefix + """search/MoreStats""",
-      """""",
+      """ Route for Individual Parts""",
       Seq()
     )
   )
@@ -171,15 +148,9 @@ class Routes(
       }
   
     // @LINE:13
-    case controllers_SubmissionSentimentController_showSentimentPage3_route(params@_) =>
-      call { 
-        controllers_SubmissionSentimentController_showSentimentPage3_invoker.call(SubmissionSentimentController_3.showSentimentPage)
-      }
-  
-    // @LINE:14
-    case controllers_SearchController_MoreStats4_route(params@_) =>
+    case controllers_SearchController_MoreStats3_route(params@_) =>
       call(params.fromQuery[String]("query", None)) { (query) =>
-        controllers_SearchController_MoreStats4_invoker.call(SearchController_2.MoreStats(query))
+        controllers_SearchController_MoreStats3_invoker.call(SearchController_2.MoreStats(query))
       }
   }
 }
