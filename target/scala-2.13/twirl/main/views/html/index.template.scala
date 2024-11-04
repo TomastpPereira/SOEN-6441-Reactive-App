@@ -21,30 +21,27 @@ import play.data._
 import play.core.j.PlayFormsMagicForJava._
 import scala.jdk.CollectionConverters._
 /*1.2*/import models.Video
-/*2.2*/import views.html.navbar
-/*3.2*/import models.SearchResult
+/*2.2*/import models.SearchResult
 
 object index extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,_root_.play.twirl.api.Format[play.twirl.api.HtmlFormat.Appendable]](play.twirl.api.HtmlFormat) with _root_.play.twirl.api.Template1[LinkedList[SearchResult],play.twirl.api.HtmlFormat.Appendable] {
 
   /**/
-  def apply/*5.2*/(searchHistory: LinkedList[SearchResult]):play.twirl.api.HtmlFormat.Appendable = {
+  def apply/*4.2*/(searchHistory: LinkedList[SearchResult]):play.twirl.api.HtmlFormat.Appendable = {
     _display_ {
       {
 
 
-Seq[Any](format.raw/*5.43*/("""
+Seq[Any](format.raw/*4.43*/("""
 
 
-"""),format.raw/*8.1*/("""<!DOCTYPE html>
+"""),format.raw/*7.1*/("""<!DOCTYPE html>
 <html lang="en">
   <head>
     <title>YouTube Video</title>
   </head>
   <body>
 
-    """),_display_(/*15.6*/navbar("search")),format.raw/*15.22*/("""
-
-    """),format.raw/*17.5*/("""<h1>YouTube Video</h1>
+    <h1>Welcome to YT Lytics</h1>
     <h2>Enter Search Terms</h2>
 
     <form action="/search/searchVideos" method="get">
@@ -52,35 +49,35 @@ Seq[Any](format.raw/*5.43*/("""
       <button type="submit">Search</button>
     </form>
 
-    """),_display_(/*25.6*/for(searchResult <- searchHistory) yield /*25.40*/ {_display_(Seq[Any](format.raw/*25.42*/("""
-      """),format.raw/*26.7*/("""<div>
+    """),_display_(/*22.6*/for(searchResult <- searchHistory) yield /*22.40*/ {_display_(Seq[Any](format.raw/*22.42*/("""
+      """),format.raw/*23.7*/("""<div>
         <h2>
-            Search Terms: """"),_display_(/*28.29*/searchResult/*28.41*/.query),format.raw/*28.47*/("""" <a href=""""),_display_(/*28.59*/routes/*28.65*/.SearchController.MoreStats(searchResult.query)),format.raw/*28.112*/(""""> morestats </a>
+            Search Terms: """"),_display_(/*25.29*/searchResult/*25.41*/.query),format.raw/*25.47*/("""" """),_display_(/*25.50*/searchResult/*25.62*/.sentiment),format.raw/*25.72*/(""" """),format.raw/*25.73*/("""<a href=""""),_display_(/*25.83*/routes/*25.89*/.SearchController.MoreStats(searchResult.query)),format.raw/*25.136*/(""""> morestats </a>
         </h2>
         <ol>
-        """),_display_(/*31.10*/for(video <- searchResult.videos) yield /*31.43*/ {_display_(Seq[Any](format.raw/*31.45*/("""
-          """),format.raw/*32.11*/("""<li>
+        """),_display_(/*28.10*/for(video <- searchResult.videos.take(10)) yield /*28.52*/ {_display_(Seq[Any](format.raw/*28.54*/("""
+          """),format.raw/*29.11*/("""<li>
               <b>Title: </b>
-              <a href="https://www.youtube.com/watch?v="""),_display_(/*34.57*/video/*34.62*/.videoId),format.raw/*34.70*/("""">
-                """),_display_(/*35.18*/video/*35.23*/.title),format.raw/*35.29*/("""
-              """),format.raw/*36.15*/("""</a>
+              <a href="https://www.youtube.com/watch?v="""),_display_(/*31.57*/video/*31.62*/.getVideoId),format.raw/*31.73*/("""">
+                """),_display_(/*32.18*/video/*32.23*/.getTitle),format.raw/*32.32*/("""
+              """),format.raw/*33.15*/("""</a>
               <b>Channel: </b>
-              <a href="/youtube/channel/"""),_display_(/*38.42*/video/*38.47*/.channelId),format.raw/*38.57*/("""">
-                """),_display_(/*39.18*/video/*39.23*/.channelTitle),format.raw/*39.36*/("""
-              """),format.raw/*40.15*/("""</a>
+              <a href="/youtube/channel/"""),_display_(/*35.42*/video/*35.47*/.getChannelId),format.raw/*35.60*/("""">
+                """),_display_(/*36.18*/video/*36.23*/.getChannelTitle),format.raw/*36.39*/("""
+              """),format.raw/*37.15*/("""</a>
               <b>Description: </b>
-                """"),_display_(/*42.19*/video/*42.24*/.description),format.raw/*42.36*/(""""
+                """"),_display_(/*39.19*/video/*39.24*/.getDescription),format.raw/*39.39*/(""""
               <a href="">  Tags </a>
           </li>
-            <img src=""""),_display_(/*45.24*/video/*45.29*/.thumbnail),format.raw/*45.39*/("""" alt="Video's Thumbnail">
+            <img src=""""),_display_(/*42.24*/video/*42.29*/.getThumbnail),format.raw/*42.42*/("""" alt="Video's Thumbnail">
 
-        """)))}),format.raw/*47.10*/("""
-        """),format.raw/*48.9*/("""</ol>
+        """)))}),format.raw/*44.10*/("""
+        """),format.raw/*45.9*/("""</ol>
       </div>
       <hr>
-      """)))}),format.raw/*51.8*/("""
+      """)))}),format.raw/*48.8*/("""
 
-  """),format.raw/*53.3*/("""</body>
+  """),format.raw/*50.3*/("""</body>
 </html>
 """))
       }
@@ -99,9 +96,9 @@ Seq[Any](format.raw/*5.43*/("""
               /*
                   -- GENERATED --
                   SOURCE: app/views/index.scala.html
-                  HASH: da3e4d75319be9b2d27fd487a52b6128a13f9c71
-                  MATRIX: 610->1|637->23|669->50|1018->81|1154->122|1186->128|1319->235|1356->251|1391->259|1674->516|1724->550|1764->552|1799->560|1875->609|1896->621|1923->627|1962->639|1977->645|2046->692|2130->749|2179->782|2219->784|2259->796|2378->888|2392->893|2421->901|2469->922|2483->927|2510->933|2554->949|2660->1028|2674->1033|2705->1043|2753->1064|2767->1069|2801->1082|2845->1098|2932->1158|2946->1163|2979->1175|3087->1256|3101->1261|3132->1271|3202->1310|3239->1320|3309->1360|3342->1366
-                  LINES: 23->1|24->2|25->3|30->5|35->5|38->8|45->15|45->15|47->17|55->25|55->25|55->25|56->26|58->28|58->28|58->28|58->28|58->28|58->28|61->31|61->31|61->31|62->32|64->34|64->34|64->34|65->35|65->35|65->35|66->36|68->38|68->38|68->38|69->39|69->39|69->39|70->40|72->42|72->42|72->42|75->45|75->45|75->45|77->47|78->48|81->51|83->53
+                  HASH: 255950468143d341dbcb54427d6149b5e82ed0b7
+                  MATRIX: 610->1|637->23|986->54|1122->95|1154->101|1550->471|1600->505|1640->507|1675->515|1751->564|1772->576|1799->582|1829->585|1850->597|1881->607|1910->608|1947->618|1962->624|2031->671|2115->728|2173->770|2213->772|2253->784|2372->876|2386->881|2418->892|2466->913|2480->918|2510->927|2554->943|2660->1022|2674->1027|2708->1040|2756->1061|2770->1066|2807->1082|2851->1098|2938->1158|2952->1163|2988->1178|3096->1259|3110->1264|3144->1277|3214->1316|3251->1326|3321->1366|3354->1372
+                  LINES: 23->1|24->2|29->4|34->4|37->7|52->22|52->22|52->22|53->23|55->25|55->25|55->25|55->25|55->25|55->25|55->25|55->25|55->25|55->25|58->28|58->28|58->28|59->29|61->31|61->31|61->31|62->32|62->32|62->32|63->33|65->35|65->35|65->35|66->36|66->36|66->36|67->37|69->39|69->39|69->39|72->42|72->42|72->42|74->44|75->45|78->48|80->50
                   -- GENERATED --
               */
           

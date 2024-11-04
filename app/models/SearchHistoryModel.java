@@ -13,7 +13,7 @@ public class SearchHistoryModel {
 
     private final YouTube youtubeApiClient;
     private static final int MAX_SEARCHES = 10;
-    private static final int RESULTS_PER_QUERY = 10;
+    private static final int RESULTS_PER_QUERY = 50;
     private final LinkedList<SearchResult> searchHistory = new LinkedList<>();
 
     @Inject
@@ -29,16 +29,21 @@ public class SearchHistoryModel {
             JsonNode videosJson = youtubeApiClient.searchVideos(query, RESULTS_PER_QUERY);
             if (videosJson != null && videosJson.get("items") != null) {
                 for (JsonNode item : videosJson.get("items")) {
-                    Video video = new Video(
-                            item.get("id").get("videoId").asText(),
-                            item.get("snippet").get("title").asText(),
-                            item.get("snippet").get("channelId").asText(),
-                            item.get("snippet").get("channelTitle").asText(),
-                            item.get("snippet").get("description").asText(),
-                            item.get("snippet").get("thumbnails").get("default").get("url").asText()
-                    );
-                    System.out.println(video.thumbnail);
-                    videos.add(video);
+                    try {
+                        Video video = new Video(
+                                item.get("id").get("videoId").asText(),
+                                item.get("snippet").get("title").asText(),
+                                item.get("snippet").get("channelId").asText(),
+                                item.get("snippet").get("channelTitle").asText(),
+                                item.get("snippet").get("description").asText(),
+                                item.get("snippet").get("thumbnails").get("default").get("url").asText()
+                        );
+                        videos.add(video);
+                    }
+                    catch (Exception e){
+                        System.err.println("Error in Extracting from Video:" + e);
+
+                    }
                 }
             }
         } catch (IOException e) {
@@ -74,7 +79,9 @@ public class SearchHistoryModel {
         if (searchHistory.size() == MAX_SEARCHES) {
             searchHistory.removeLast();
         }
-        searchHistory.addFirst(new SearchResult(query, videos));
+
+        String thisSentiment = SubmissionSentiment.determineSentiment(videos);
+        searchHistory.addFirst(new SearchResult(query, videos, thisSentiment));
     }
 
     public LinkedList<SearchResult> getSearchHistory() {
