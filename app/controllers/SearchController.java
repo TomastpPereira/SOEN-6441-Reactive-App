@@ -5,6 +5,7 @@ import com.google.inject.Inject;
 import play.mvc.Controller;
 import play.mvc.Result;
 
+import java.util.LinkedList;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
@@ -16,6 +17,10 @@ public class SearchController extends Controller {
     @Inject
     public SearchController(SearchHistoryModel shModel) {
         this.shModel = shModel;
+    }
+
+    public Result index() {
+        return ok(views.html.index.render(new LinkedList<>()));
     }
 
     public CompletionStage<Result> searchVideos(String query) {

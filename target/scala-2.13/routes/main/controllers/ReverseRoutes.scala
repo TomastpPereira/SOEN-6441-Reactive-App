@@ -11,7 +11,7 @@ import _root_.play.libs.F
 package controllers {
 
   // @LINE:6
-  class ReverseHomeController(_prefix: => String) {
+  class ReverseSearchController(_prefix: => String) {
     def _defaultPrefix: String = {
       if (_prefix.endsWith("/")) "" else "/"
     }
@@ -21,6 +21,18 @@ package controllers {
     def index(): Call = {
       
       Call("GET", _prefix)
+    }
+  
+    // @LINE:10
+    def searchVideos(query:String): Call = {
+      
+      Call("GET", _prefix + { _defaultPrefix } + "search/searchVideos" + play.core.routing.queryString(List(Some(implicitly[play.api.mvc.QueryStringBindable[String]].unbind("query", query)))))
+    }
+  
+    // @LINE:13
+    def MoreStats(query:String): Call = {
+      
+      Call("GET", _prefix + { _defaultPrefix } + "search/MoreStats" + play.core.routing.queryString(List(Some(implicitly[play.api.mvc.QueryStringBindable[String]].unbind("query", query)))))
     }
   
   }
@@ -36,27 +48,6 @@ package controllers {
     def versioned(file:Asset): Call = {
       implicit lazy val _rrc = new play.core.routing.ReverseRouteContext(Map(("path", "/public"))); _rrc
       Call("GET", _prefix + { _defaultPrefix } + "assets/" + implicitly[play.api.mvc.PathBindable[Asset]].unbind("file", file))
-    }
-  
-  }
-
-  // @LINE:10
-  class ReverseSearchController(_prefix: => String) {
-    def _defaultPrefix: String = {
-      if (_prefix.endsWith("/")) "" else "/"
-    }
-
-  
-    // @LINE:10
-    def searchVideos(query:String): Call = {
-      
-      Call("GET", _prefix + { _defaultPrefix } + "search/searchVideos" + play.core.routing.queryString(List(Some(implicitly[play.api.mvc.QueryStringBindable[String]].unbind("query", query)))))
-    }
-  
-    // @LINE:13
-    def MoreStats(query:String): Call = {
-      
-      Call("GET", _prefix + { _defaultPrefix } + "search/MoreStats" + play.core.routing.queryString(List(Some(implicitly[play.api.mvc.QueryStringBindable[String]].unbind("query", query)))))
     }
   
   }
