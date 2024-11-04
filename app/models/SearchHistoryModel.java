@@ -3,14 +3,11 @@ package models;
 import com.google.inject.Inject;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import controllers.SearchController;
 
 import java.io.IOException;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class SearchHistoryModel {
 
