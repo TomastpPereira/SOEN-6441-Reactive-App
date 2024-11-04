@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import controllers.SearchController;
 
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -35,8 +36,11 @@ public class SearchHistoryModel {
                             item.get("id").get("videoId").asText(),
                             item.get("snippet").get("title").asText(),
                             item.get("snippet").get("channelId").asText(),
-                            item.get("snippet").get("channelTitle").asText()
+                            item.get("snippet").get("channelTitle").asText(),
+                            item.get("snippet").get("description").asText(),
+                            item.get("snippet").get("thumbnails").get("default").get("url").asText()
                     );
+                    System.out.println(video.thumbnail);
                     videos.add(video);
                 }
             }
