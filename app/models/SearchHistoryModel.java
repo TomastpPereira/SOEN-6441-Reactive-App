@@ -80,7 +80,9 @@ public class SearchHistoryModel {
             searchHistory.removeLast();
         }
 
-        String thisSentiment = SubmissionSentiment.determineSentiment(videos);
+        SubmissionSentiment sentimentAnalyzer = new SubmissionSentiment();
+
+        String thisSentiment = sentimentAnalyzer.determineSentiment(videos);
         searchHistory.addFirst(new SearchResult(query, videos, thisSentiment));
     }
 
