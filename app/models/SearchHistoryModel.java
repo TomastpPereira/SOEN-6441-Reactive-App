@@ -185,7 +185,9 @@ public class SearchHistoryModel {
                             item.get("id").get("videoId").asText(),
                             item.get("snippet").get("title").asText(),
                             item.get("snippet").get("channelId").asText(),
-                            item.get("snippet").get("channelTitle").asText()
+                            item.get("snippet").get("channelTitle").asText(),
+                            item.get("snippet").get("description").asText(),
+                            item.get("snippet").get("thumbnails").get("default").get("url").asText()
                     );
                     channelVideos.add(video);
                 }
