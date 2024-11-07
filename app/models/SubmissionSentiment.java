@@ -8,8 +8,22 @@ import java.util.stream.Collectors;
 
 public class SubmissionSentiment {
 
+    /**
+     * @author Tomas Pereira
+     *
+     * Constructor for the SubmissionSentiment Object.
+     */
     public SubmissionSentiment(){}
 
+    /**
+     * @author Tomas Pereira
+     *
+     * Given a path to a file containing a list of words, reads the file and stores each of the words in a HashSet
+     * to be used during sentiment analysis.
+     *
+     * @param path String path to the file.
+     * @return Hashset containing each of the words in the input file
+     */
     public Set<String> loadSentimentFile(String path){
         List<String> readLines = null;
         try{
@@ -23,6 +37,19 @@ public class SubmissionSentiment {
         else return null;
     }
 
+    /**
+     * @author Tomas Pereira
+     *
+     * Determines the sentiment of the description for a single video.
+     * Using a stream, counts the occurence of each word in the description in both of the sets.
+     * Using this count, returns a happy or sad sentiment if 70% of the words occur in that given set.
+     * Othewise returns a neutral sentiment.
+     *
+     * @param description The video description being processed.
+     * @param happySet The set of words indicating happy sentiment.
+     * @param sadSet The set of words indicating sad sentiment.
+     * @return Either :-) :-| or :-( based on the sentiment for the given description.
+     */
     public static String singleSentiment(String description, Set<String> happySet, Set<String> sadSet){
         List <String> descWords = Arrays.asList(description.split(" "));
         int totalWords = descWords.size();
@@ -38,6 +65,16 @@ public class SubmissionSentiment {
             return ":-|";
     }
 
+    /**
+     * @author Tomas Pereira
+     *
+     * Streams a list of videos to get the most common sentiment among them.
+     * Uses a stream to map each video to its description and collect the count for each sentiment.
+     * Then uses another stream to process these sentiment counts and return the one with the highest occurence.
+     *
+     * @param videos List of videos to be processed
+     * @return Either :-) :-| or :-( based on the sentiment for the whole set of videos.
+     */
     public String determineSentiment(List<Video> videos){
 
         Set<String> happySet = loadSentimentFile("public/SentimentWords/HappyStrings.txt");
@@ -53,9 +90,6 @@ public class SubmissionSentiment {
                 .max(Map.Entry.comparingByValue())
                 .map(Map.Entry::getKey)
                 .orElse(":-|");
-
-
-
     }
 
 }

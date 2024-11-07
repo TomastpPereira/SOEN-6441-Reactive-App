@@ -11,6 +11,10 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
 
+/**
+ * @author Tomas Pereira
+ * Unit Testing for the Submission Sentiment Part
+ */
 public class SubmissionSentimentTest {
 
     SubmissionSentiment sentimentAnalyzer;
@@ -18,6 +22,10 @@ public class SubmissionSentimentTest {
     Set<String> sadSet;
 
 
+    /**
+     * @author Tomas Pereira
+     * Before the tests, creates the SubmissionSentiment object which will be used the call the private methods.
+     */
     @Before
     public void init(){
         sentimentAnalyzer = new SubmissionSentiment();
@@ -25,6 +33,12 @@ public class SubmissionSentimentTest {
         sadSet = new HashSet<>(Arrays.asList("Unhappy", "Sad", "Cry", "Tears"));
     }
 
+    /**
+     * @author Tomas Pereira
+     * Tests whether a sad description will work properly.
+     * The sad file contains [Unhappy,Sad,Cry,Tears].
+     * The descrption "Unhappy Unhappy Unhappy Unhappy Sad Sad Sad" is thus 100% unhappy
+     */
     @Test
     public void testSadSentiment(){
         String description = "Unhappy Unhappy Unhappy Unhappy Sad Sad Sad";
@@ -33,6 +47,12 @@ public class SubmissionSentimentTest {
         assertEquals (":-(", result, "Description should result in a Sad sentiment");
     }
 
+    /**
+     * @author Tomas Pereira
+     * Tests whether a sad description will work properly.
+     * The happy file contains [Happy,Smile,Joy].
+     * The descrption "Smile Smile Smile Joy Joy Joy" is thus 100% unhappy
+     */
     @Test
     public void testHappySentiment(){
         String description = "Smile Smile Smile Joy Joy Joy";
@@ -41,6 +61,12 @@ public class SubmissionSentimentTest {
         assertEquals (":-)", result, "Description should result in a Happy sentiment");
     }
 
+    /**
+     * @author Tomas Pereira
+     * Tests whether a sad description will work properly.
+     * The descrption "Smile Smile Smile Sad Sad Sad" is 50% happy and 50% sad, which does not meet the requirement for
+     * either sentiment.
+     */
     @Test
     public void testNeutralSentiment(){
         String description = "Smile Smile Smile Sad Sad Sad";
@@ -49,6 +75,12 @@ public class SubmissionSentimentTest {
         assertEquals (":-|", result, "Description should result in a Neutral sentiment");
     }
 
+    /**
+     * @author Tomas Pereira
+     * Tests where an empty description will work properly.
+     * Given no words in the description, there can not be any % of words being happy or sad,
+     * so the sentiment must be neutral
+     */
     @Test
     public void testEmptyDescription(){
         String description = "";
@@ -57,6 +89,10 @@ public class SubmissionSentimentTest {
         assertEquals (":-|", result, "Empty Description should result in a Neutral sentiment");
     }
 
+    /**
+     * @author Tomas Pereira
+     * Tests whether a given sentiment file will correctly load the set of words.
+     */
     @Test
     public void testLoadSentimentFileSuccess(){
         String filePath = "test/models/happyTestFile.txt";
@@ -66,6 +102,10 @@ public class SubmissionSentimentTest {
         assertEquals(Set.of("Happy", "Smile", "Joy"), testSet, "Words from loaded files do not match expected");
     }
 
+    /**
+     * @author Tomas Pereira
+     * Tests that a non-existing sentiment file will correctly give a null set.
+     */
     @Test
     public void testLoadSentimentFileFail(){
         String filePath = "test/models/fakeTestFile.txt";
@@ -74,6 +114,10 @@ public class SubmissionSentimentTest {
         assertNull(testSet);
     }
 
+    /**
+     * @author Tomas Pereira
+     * Tests the Determine Sentiment method to ensure that sentiment for a list of videos is correctly processed.
+     */
     @Test
     public void testDetermineSentimentHappy(){
         Video video1 = new Video("vidID1", "title1", "channelID1", "channelTitle1", "Happy Happy Happy", "thumb1");
@@ -86,6 +130,10 @@ public class SubmissionSentimentTest {
         assertEquals(sentimentAnalyzer.determineSentiment(vidList), ":-)");
     }
 
+    /**
+     * @author Tomas Pereira
+     * Nulls the created sets and Submission sentiment object once the tests are complete.
+     */
     @After
     public void teardown(){
         sentimentAnalyzer = null;
