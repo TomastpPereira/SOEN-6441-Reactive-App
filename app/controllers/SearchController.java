@@ -1,19 +1,19 @@
 package controllers;
 
+import models.Channel;
+import models.Video;
 import models.SearchHistoryModel;
 import com.google.inject.Inject;
 import play.mvc.Controller;
 import play.mvc.Result;
 
 import java.util.List;
+import java.util.LinkedList;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
 import static models.WordStats.generateWordStats;
 
-// Is it okay to import here ?
-import models.Channel;
-import models.Video;
 
 public class SearchController extends Controller {
     private final SearchHistoryModel shModel;
@@ -21,6 +21,10 @@ public class SearchController extends Controller {
     @Inject
     public SearchController(SearchHistoryModel shModel) {
         this.shModel = shModel;
+    }
+
+    public Result index() {
+        return ok(views.html.index.render(new LinkedList<>()));
     }
 
     public CompletionStage<Result> searchVideos(String query) {

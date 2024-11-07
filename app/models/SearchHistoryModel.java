@@ -3,26 +3,46 @@ package models;
 import com.google.inject.Inject;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import controllers.SearchController;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
+/**
+ * @author Tomas Pereira
+ *
+ * Represents the current search history in the application.
+ * Stores the search history and interfaces with the Youtube API.
+ */
 public class SearchHistoryModel {
+
 
     private final YouTube youtubeApiClient;
     private static final int MAX_SEARCHES = 10;
-    private static final int RESULTS_PER_QUERY = 10;
+    private static final int RESULTS_PER_QUERY = 50;
     private final LinkedList<SearchResult> searchHistory = new LinkedList<>();
 
+    /**
+     * @author Tomas Pereira
+     * Constructor for the SearchHistory model.
+     * @param youtubeApiClient YoutubeApiClient which takes care of the API interactions for the SearchHistoryModel.
+     */
     @Inject
     public SearchHistoryModel(YouTube youtubeApiClient) {
         this.youtubeApiClient = youtubeApiClient;
     }
 
+    /**
+     * @author Tomas Pereira
+     *
+     * Helper function.
+     * Given a string of keywords, queries the Youtube API to retrieve 50 videos matching them.
+     * Creates a Video object for each of these retrieved videos and stores them in a list.
+     *
+     * @param query The string of keywords being searched
+     * @return The list of videos that are retrieved from the Youtube API using the given keywords
+     */
     public List<Video> queryYoutube(String query){
 
         List<Video> videos = new ArrayList<>();
@@ -31,13 +51,21 @@ public class SearchHistoryModel {
             JsonNode videosJson = youtubeApiClient.searchVideos(query, RESULTS_PER_QUERY);
             if (videosJson != null && videosJson.get("items") != null) {
                 for (JsonNode item : videosJson.get("items")) {
-                    Video video = new Video(
-                            item.get("id").get("videoId").asText(),
-                            item.get("snippet").get("title").asText(),
-                            item.get("snippet").get("channelId").asText(),
-                            item.get("snippet").get("channelTitle").asText()
-                    );
-                    videos.add(video);
+                    try {
+                        Video video = new Video(
+                                item.get("id").get("videoId").asText(),
+                                item.get("snippet").get("title").asText(),
+                                item.get("snippet").get("channelId").asText(),
+                                item.get("snippet").get("channelTitle").asText(),
+                                item.get("snippet").get("description").asText(),
+                                item.get("snippet").get("thumbnails").get("default").get("url").asText()
+                        );
+                        videos.add(video);
+                    }
+                    catch (Exception e){
+                        System.err.println("Error in Extracting from Video:" + e);
+
+                    }
                 }
             }
         } catch (IOException e) {
@@ -49,6 +77,16 @@ public class SearchHistoryModel {
         }
         return videos;
     }
+
+    /**
+     * Tongzhou Qian
+     *
+     * Using the YoutuveApiClient, queries for a given number of video results.
+     *
+     * @param query Query string being search.
+     * @param Result_num Integer number of videos to be returned.
+     * @return JSON containing the information for each of the returned videos.
+     */
     public JsonNode queryYoutube(String query,int Result_num){
 
         JsonNode videosJson = null;
@@ -66,16 +104,42 @@ public class SearchHistoryModel {
         return videosJson;
     }
 
+    /**
+     * @author Tomas Pereira
+     * Given a string query. Calls the queryYoutube function and stores the pair of Query string and Video list in the search history.
+     * @param query The query string being searched
+     */
     public void queryAndStore(String query){
         addSearchResult(query, queryYoutube(query));
     }
+
+    /**
+     * @author Tomas Pereira
+     *
+     * Given a query and the resulting video list. Analyzes the sentiment across these videos and stores the
+     * information in a SearchResult object. The SearchResult is then added to the searchHistory list.
+     *
+     * @param query The query string being searched
+     * @param videos The list of videos being processed
+     */
     public void addSearchResult(String query, List<Video> videos) {
         if (searchHistory.size() == MAX_SEARCHES) {
             searchHistory.removeLast();
         }
-        searchHistory.addFirst(new SearchResult(query, videos));
+
+        SubmissionSentiment sentimentAnalyzer = new SubmissionSentiment();
+
+        String thisSentiment = sentimentAnalyzer.determineSentiment(videos);
+        searchHistory.addFirst(new SearchResult(query, videos, thisSentiment));
     }
 
+    /**
+     * @author Tomas Pereira
+     *
+     * Getter for the SearchHistory list.
+     *
+     * @return LinkedList of SearchResults representing the current searchHistory.
+     */
     public LinkedList<SearchResult> getSearchHistory() {
         return searchHistory;
     }

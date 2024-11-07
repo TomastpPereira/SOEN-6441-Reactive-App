@@ -1,5 +1,4 @@
 @import models.Video
-@import views.html.navbar
 @import models.SearchResult
 
 @(searchHistory: LinkedList[SearchResult])
@@ -12,9 +11,7 @@
   </head>
   <body>
 
-    @navbar("search")
-
-    <h1>YouTube Video</h1>
+    <h1>Welcome to YT Lytics</h1>
     <h2>Enter Search Terms</h2>
 
     <form action="/search/searchVideos" method="get">
@@ -24,21 +21,28 @@
 
     @for(searchResult <- searchHistory) {
       <div>
-        <h2>Search Terms: "@searchResult.query" <a href="@routes.SearchController.MoreStats(searchResult.query)"> morestats </a>
-</h2>
-        <ul>
-        @for(video <- searchResult.videos) {
+        <h2>
+            Search Terms: "@searchResult.query" @searchResult.sentiment <a href="@routes.SearchController.MoreStats(searchResult.query)"> morestats </a>
+        </h2>
+        <ol>
+        @for(video <- searchResult.videos.take(10)) {
           <li>
-            <a href="https://www.youtube.com/watch?v=@video.videoId">
-            @video.title
-            </a>
-            <br>
-            <a href="@routes.SearchController.showChannelProfile(video.channelId)">
-                Channel: @video.channelTitle
+              <b>Title: </b>
+              <a href="https://www.youtube.com/watch?v=@video.getVideoId">
+                @video.getTitle
               </a>
+              <b>Channel: </b>
+              <a href="@routes.SearchController.showChannelProfile(video.channelId)">
+                @video.getChannelTitle
+              </a>
+              <b>Description: </b>
+                "@video.getDescription"
+              <a href="">  Tags </a>
           </li>
+            <img src="@video.getThumbnail" alt="Video's Thumbnail">
+
         }
-        </ul>
+        </ol>
       </div>
       <hr>
       }

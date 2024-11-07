@@ -7,11 +7,18 @@ import java.net.URL;
 import java.net.HttpURLConnection;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 public class YouTube {
-    private static final String API_KEY="AIzaSyBTdLng0J0bxQOYFhKhMrI23guTCVRI1xQ";
+    //private static final String API_KEY="AIzaSyBTdLng0J0bxQOYFhKhMrI23guTCVRI1xQ"; //Qian
+    private static final String API_KEY="AIzaSyDO584JNmQbEi6yDkuG_UgNVVAtF4vHclU";   //Tomas
     private static final String API_URL="https://www.googleapis.com/youtube/v3/";
     public JsonNode searchVideos(String query, int maxResults) throws Exception {
-        String url = API_URL + "search?part=snippet&q=" + query + "&maxResults=" + maxResults + "&key=" + API_KEY;
+        // Ensures that the format of query is correct when using multiple keywords
+        String encodedQuery = URLEncoder.encode(query, StandardCharsets.UTF_8);
+        // Complete the url to make the request
+        String url = API_URL + "search?part=snippet&q=" + encodedQuery + "&maxResults=" + maxResults + "&key=" + API_KEY;
         return makeRequest(url);
     }
     // Get video details by video ID
