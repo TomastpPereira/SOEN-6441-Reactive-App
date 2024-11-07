@@ -33,7 +33,7 @@
             @video.title
             </a>
             <br>
-            <a href="/youtube/channel/@video.channelId">
+            <a href="@routes.SearchController.showChannelProfile(video.channelId)">
                 Channel: @video.channelTitle
               </a>
           </li>

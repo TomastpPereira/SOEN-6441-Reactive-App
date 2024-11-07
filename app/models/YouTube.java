@@ -24,6 +24,12 @@ public class YouTube {
         String url = API_URL + "channels?part=snippet,statistics&id=" + channelId + "&key=" + API_KEY;
         return makeRequest(url);
     }
+    // Get video details only from the channel
+    public JsonNode getVideosByChannelId(String channelId, int maxResults) throws Exception {
+        String url = API_URL + "search?part=snippet&channelId=" + channelId + "&maxResults=" + maxResults + "&order=date&key=" + API_KEY;
+        return makeRequest(url);
+    }
+
     private JsonNode makeRequest(String urlString) throws Exception {
         URL url = new URL(urlString);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
