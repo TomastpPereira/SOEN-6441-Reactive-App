@@ -21,7 +21,7 @@ public class SearchHistoryModel {
     private final YouTube youtubeApiClient;
     private static final int MAX_SEARCHES = 10;
     private static final int RESULTS_PER_QUERY = 50;
-    private final LinkedList<SearchResult> searchHistory = new LinkedList<>();
+    private LinkedList<SearchResult> searchHistory = new LinkedList<>();
 
     /**
      * @author Tomas Pereira
@@ -79,9 +79,9 @@ public class SearchHistoryModel {
     }
 
     /**
-     * Tongzhou Qian
+     * @author Tongzhou Qian
      *
-     * Using the YoutuveApiClient, queries for a given number of video results.
+     * Using the YoutubeApiClient, queries for a given number of video results.
      *
      * @param query Query string being search.
      * @param Result_num Integer number of videos to be returned.
