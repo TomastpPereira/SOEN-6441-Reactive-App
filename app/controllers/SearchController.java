@@ -43,6 +43,7 @@ public class SearchController extends Controller {
             return generateWordStats(shModel.queryYoutube(query,50));
         }).thenApply(Morestats -> ok(views.html.wordstats.render(query,Morestats)));
     }
+
     public CompletionStage<Result> showChannelProfile(String channelId) {
         // Handle of the asynchronous part
         return CompletableFuture.supplyAsync(() -> {

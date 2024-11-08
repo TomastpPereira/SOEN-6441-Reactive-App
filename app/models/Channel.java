@@ -127,9 +127,9 @@ public class Channel {
     /**
      * @author Sam Collin
      * Getter for the state of the subscriber count.
-     * @return String for the state of the subscriber count
+     * @return Boolean for the state of the subscriber count
      */
-    public boolean isHiddenSubscriberCount() {
+    public boolean getHiddenSubscriberCount() {
         return hiddenSubscriberCount;
     }
 
