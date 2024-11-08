@@ -6,6 +6,7 @@ import models.SearchHistoryModel;
 import com.google.inject.Inject;
 import play.mvc.Controller;
 import play.mvc.Result;
+import views.html.wordstats;
 
 import java.util.List;
 import java.util.LinkedList;
