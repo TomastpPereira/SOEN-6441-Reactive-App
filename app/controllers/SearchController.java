@@ -44,6 +44,11 @@ public class SearchController extends Controller {
         }).thenApply(Morestats -> ok(views.html.wordstats.render(query,Morestats)));
     }
 
+    /**
+     * @author Sam Collin
+     * @param channelId
+     * @return
+     */
     public CompletionStage<Result> showChannelProfile(String channelId) {
         // Handle of the asynchronous part
         return CompletableFuture.supplyAsync(() -> {

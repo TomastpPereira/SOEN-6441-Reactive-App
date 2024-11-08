@@ -159,7 +159,7 @@ public class SearchHistoryModel {
     public Channel getChannelDetails(String channelId){
         try{
             JsonNode channelJson = youtubeApiClient.getChannelDetails(channelId);
-            if(channelJson != null && channelJson.has("items") && channelJson.get("items").size() > 0){
+            if(channelJson != null && channelJson.has("items") && !channelJson.get("items").isEmpty()){
                 JsonNode channelNode = channelJson.get("items").get(0);
                 String id = channelNode.get("id").asText();
                 String title = channelNode.get("snippet").get("title").asText();
