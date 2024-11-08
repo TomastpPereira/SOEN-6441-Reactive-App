@@ -33,6 +33,7 @@ public class SearchController extends Controller {
             // Perform query and store operation
             shModel.queryAndStore(query);
             // Fetch the updated search history
+
             return shModel.getSearchHistory();
         }).thenApply(searchHistory -> ok(views.html.index.render(searchHistory)));
     }
