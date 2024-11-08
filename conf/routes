@@ -10,4 +10,5 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 GET   /search/searchVideos   controllers.SearchController.searchVideos(query: String)
 
 # Route for Individual Parts
+GET     /channel/:channelId         controllers.SearchController.showChannelProfile(channelId: String)
 GET     /search/MoreStats          controllers.SearchController.MoreStats(query: String)
