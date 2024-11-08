@@ -144,9 +144,18 @@ public class SearchHistoryModel {
         return searchHistory;
     }
 
-    // CAN LATER ADD ANY FUNCTIONALITIES NEEDED
-
-
+    /**
+     * @author sam collin
+     *
+     * Method that retrieves all the information about a specific Youtube channel.
+     *
+     * This method calls the Youtube API to retrieve information about a specific channel identified by it's channelId given.
+     * It retrieves the channelId, title, description, published date, country, customUrl, thumbnail URL, subscriber count, view count, and video count.
+     * It then creates and returns a {@link Channel} object.
+     *
+     * @param channelId The ID of the channel whose information will be retrieved.
+     * @return A {@link Channel} object containing all the information, if not found, it returns null.
+     */
     public Channel getChannelDetails(String channelId){
         try{
             JsonNode channelJson = youtubeApiClient.getChannelDetails(channelId);
@@ -174,6 +183,19 @@ public class SearchHistoryModel {
         return null;
     }
 
+    /**
+     * @author sam collin
+     *
+     * This method retrieves the latest videos belonging to a specific youtube channel.
+     *
+     * This method calls the Youtube API to retrieve a user specified quantity of videos associated to a certain channel
+     * identified by the given ID as parameters.<br>
+     * It will return a list of {@link Video} objects containing info like videoId, title, channelId, channelTitle, description, ...
+     *
+     * @param channelId The channel where the latest videos are searched.
+     * @param maxResults The number of videos that will be retrieved.
+     * @return a list of {@link Video} objects containing the maxResults latest videos. If none is found, the list will just be empty.
+     */
     public List<Video> getChannelVideos(String channelId, int maxResults){
 
         List<Video> channelVideos = new ArrayList<>();
@@ -202,4 +224,8 @@ public class SearchHistoryModel {
         }
         return channelVideos;
     }
+
+    // CAN LATER ADD ANY FUNCTIONALITIES NEEDED
+
+
 }
