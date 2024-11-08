@@ -1,7 +1,7 @@
 package models;
 
 /**
- * @author sam collin
+ * @author Sam Collin
  *
  * This class represents a Youtube Channel.
  * It stores information such as id, title, description, publishedAt, country, customUrl, thumbnailUrl, subscriberCount, hiddenSubscriberCount, viewCount and videoCount.
@@ -24,6 +24,7 @@ public class Channel {
 
 
     /**
+     * @author Sam Collin
      * Constructor for a {@link Channel} object.
      * @param id Identifies the channel.
      * @param title Channel's title

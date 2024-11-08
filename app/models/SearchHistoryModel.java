@@ -145,7 +145,7 @@ public class SearchHistoryModel {
     }
 
     /**
-     * @author sam collin
+     * @author Sam Collin
      *
      * Method that retrieves all the information about a specific Youtube channel.
      *
@@ -184,7 +184,7 @@ public class SearchHistoryModel {
     }
 
     /**
-     * @author sam collin
+     * @author Sam Collin
      *
      * This method retrieves the latest videos belonging to a specific youtube channel.
      *
