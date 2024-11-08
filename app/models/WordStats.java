@@ -1,6 +1,7 @@
 package models;
 
 import com.fasterxml.jackson.databind.JsonNode;
+
 import java.util.*;
 import java.util.Arrays;
 import java.util.Map;
@@ -10,8 +11,15 @@ import java.util.stream.StreamSupport;
 
 public class WordStats {
 
-    private static final Set<String> ignore = Set.of("the", "and", "in", "of", "a", "to", "is", "it", "that", "with", "as", "for", "on");
-
+    private static final Set<String> ignore = Set.of();
+    /**
+     * @author Tongzhou Qian
+     * Stream pipLine for handling Json format video info
+     * @param videos video info returned by YouTube api formated in { \"items\": [" +
+     *                 "{ \"snippet\": { \"title\": \"First Video\", \"description\": \"First description.\" } }," +
+     *                 "{ \"snippet\": { \"title\": \"Second Video\", \"description\": \"Second description.\" } }," +
+     *                 "] }.
+     */
     public static Map<String, Long> generateWordStats(JsonNode videos) {
         // Check if 'videos' contains 'items'
         if (videos == null || !videos.has("items")) {

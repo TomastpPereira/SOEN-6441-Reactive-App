@@ -80,6 +80,32 @@ public class SearchControllerIntegrationTest extends WithApplication {
     }
 
     /**
+     * @author Sam Collin
+     * Tests for displaying Channel Page.
+     * This test is more like an integration test. It validates that the route,
+     * the controller and the view works together by sending a fake http request
+     * invoking the controller and finally checks if the HTML render contains generic
+     * info that should be on.
+     */
+    @Test
+    public void testShowChannelProfile() {
+
+        String channelId = "UCW4l6dIY-aEew8xv3baZVGA";
+        Http.RequestBuilder request = Helpers.fakeRequest()
+                .method(GET)
+                .uri("/channel/" + channelId);
+
+        Result result = route(app, request);
+
+        assertEquals(OK, result.status(), "The response status should be 200 for a valid channel.");
+        String content = contentAsString(result);
+
+        // Validate content contains expected details about the channel
+        assertTrue(content.contains("Channel Profile"), "The response should contain the channel title.");
+        assertTrue(content.contains("Latest Videos"), "The response should contain the video title.");
+    }
+
+    /**
      * @author Tomas Pereira
      * Stops the application after each test.
      */
