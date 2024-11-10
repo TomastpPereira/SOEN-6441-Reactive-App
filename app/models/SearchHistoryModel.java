@@ -49,7 +49,7 @@ public class SearchHistoryModel {
 
         try {
             JsonNode videosJson = youtubeApiClient.searchVideos(query, RESULTS_PER_QUERY);
-            if (videosJson != null && videosJson.get("items") != null) {
+
                 for (JsonNode item : videosJson.get("items")) {
                     try {
                         Video video = new Video(
@@ -67,7 +67,7 @@ public class SearchHistoryModel {
 
                     }
                 }
-            }
+
         } catch (IOException e) {
             System.err.println("Network error: " + e.getMessage());
         } catch (RuntimeException e) {
@@ -159,7 +159,7 @@ public class SearchHistoryModel {
     public Channel getChannelDetails(String channelId){
         try{
             JsonNode channelJson = youtubeApiClient.getChannelDetails(channelId);
-            if(channelJson != null && channelJson.has("items") && !channelJson.get("items").isEmpty()){
+
                 JsonNode channelNode = channelJson.get("items").get(0);
                 String id = channelNode.get("id").asText();
                 String title = channelNode.get("snippet").get("title").asText();
@@ -175,7 +175,7 @@ public class SearchHistoryModel {
 
                 return new Channel(id, title, description, publishedAt, country, customUrl, thumbnailUrl,
                         subscriberCount, hiddenSubscriberCount, viewCount, videoCount);
-            }
+
         } catch (Exception e) {
             System.err.println("Retrieving channel details encounter a problem : " + e.getMessage());}
         return null;
@@ -199,7 +199,7 @@ public class SearchHistoryModel {
         List<Video> channelVideos = new ArrayList<>();
         try {
             JsonNode videosJson = youtubeApiClient.getVideosByChannelId(channelId, maxResults);
-            if (videosJson != null && videosJson.get("items") != null) {
+
                 for (JsonNode item : videosJson.get("items")) {
                     Video video = new Video(
                             item.get("id").get("videoId").asText(),
@@ -211,7 +211,7 @@ public class SearchHistoryModel {
                     );
                     channelVideos.add(video);
                 }
-            }
+
 
         } catch (IOException e) {
             System.err.println("Network error: " + e.getMessage());
@@ -222,6 +222,7 @@ public class SearchHistoryModel {
         }
         return channelVideos;
     }
+
 
     // CAN LATER ADD ANY FUNCTIONALITIES NEEDED
 

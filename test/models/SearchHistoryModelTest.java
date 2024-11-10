@@ -122,6 +122,7 @@ class SearchHistoryModelTest {
         assertEquals("Test Description 1", result.getFirst().getDescription());
         assertEquals("https://fakeurl1.com/thumbnail.jpg", result.getFirst().getThumbnail());
 
+
         assertEquals("testVideoId2", result.get(1).getVideoId());
         assertEquals("Test Video Title 2", result.get(1).getTitle());
         assertEquals("testChannelId2", result.get(1).getChannelId());
@@ -175,6 +176,20 @@ class SearchHistoryModelTest {
         List<Video> result = searchHistoryModel.queryYoutube("test");
 
         assertEquals(1, result.size(), "A missing field in the Video JSON, should result in the video being skipped");
+    }
+
+    /**
+     * @author Tongzhou Qian
+     * @throws Exception
+     * The test case throw API Exception when called with any String
+     */
+    @Test
+    public void testQueryYoutubeWithRuntimeException() throws Exception {
+        when(mockYoutube.searchVideos("testQuery", 50)).thenThrow(new RuntimeException("API error"));
+
+        List<Video> videos = searchHistoryModel.queryYoutube("testQuery");
+
+        assertTrue(videos.isEmpty(), "Expected an empty list when RuntimeException is thrown");
     }
 
     /**
@@ -573,5 +588,54 @@ class SearchHistoryModelTest {
         assertNotNull(result);
         assertTrue(result.isEmpty());
     }
+    @Test
+    public void testQueryYoutubeWithNullQuery() {
+        // Test queryYoutube(String) with null query
+        List<Video> videos = searchHistoryModel.queryYoutube(null);
+        assertNotNull(videos, "Expected an empty list, not null, when query is null");
+        assertTrue(videos.isEmpty(), "Expected an empty list when query is null");
+
+        // Test queryYoutube(String, int) with null query
+        JsonNode result = searchHistoryModel.queryYoutube(null, 10);
+        assertNull(result, "Expected null when query is null for JsonNode method");
+    }
+
+    @Test
+    public void testQueryAndStoreWithNullQuery() {
+        // Test queryAndStore(String) with null query
+        assertDoesNotThrow(() -> searchHistoryModel.queryAndStore(null),
+                "Expected queryAndStore to handle null query without throwing an exception");
+
+        assertFalse(searchHistoryModel.getSearchHistory().isEmpty(),
+                "Expected search history to remain empty when queryAndStore is called with null");
+    }
+
+    @Test
+    public void testAddSearchResultWithNullArguments() {
+
+        assertTrue(searchHistoryModel.getSearchHistory().isEmpty(),
+                "Expected search history to remain empty when addSearchResult is called with null arguments");
+
+
+        assertTrue(searchHistoryModel.getSearchHistory().isEmpty(),
+                "Expected search history to remain empty when addSearchResult is called with null videos");
+    }
+
+    @Test
+    public void testGetChannelDetailsWithNullChannelId() {
+        // Test getChannelDetails(String) with null channelId
+        Channel channel = searchHistoryModel.getChannelDetails(null);
+        assertNull(channel, "Expected null when channelId is null");
+    }
+
+    @Test
+    public void testGetChannelVideosWithNullChannelId() {
+        // Test getChannelVideos(String, int) with null channelId
+        List<Video> videos = searchHistoryModel.getChannelVideos(null, 10);
+        assertNotNull(videos, "Expected an empty list, not null, when channelId is null");
+        assertTrue(videos.isEmpty(), "Expected an empty list when channelId is null");
+    }
+
+
 
 }

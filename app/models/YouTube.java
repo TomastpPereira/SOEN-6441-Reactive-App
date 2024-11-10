@@ -67,12 +67,6 @@ public class YouTube {
         return makeRequest(url);
     }
 
-    /**
-     * @author Qian Tongzhou
-     * @param urlString The string URL which corresponds to the API query being made
-     * @return The JSON information corresponding to the API response
-     * @throws Exception When the API call fails
-     */
     private JsonNode makeRequest(String urlString) throws Exception {
         URL url = new URL(urlString);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
