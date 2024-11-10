@@ -177,9 +177,7 @@ public class SearchHistoryModel {
                         subscriberCount, hiddenSubscriberCount, viewCount, videoCount);
             }
         } catch (Exception e) {
-            System.err.println("Retrieving channel details encounter a problem : " + e.getMessage());
-
-        }
+            System.err.println("Retrieving channel details encounter a problem : " + e.getMessage());}
         return null;
     }
 

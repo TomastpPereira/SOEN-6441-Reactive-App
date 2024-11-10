@@ -195,6 +195,22 @@ class SearchHistoryModelTest {
 
     /**
      * @author Tomas Pereira
+     * @throws Exception When there is an error in the API call
+     *
+     * Test case for when the query leads to a Runtime Exception (bad response from API)
+     */
+    @Test
+    public void queryYoutubeRuntimeException() throws Exception{
+
+        when(mockYoutube.searchVideos(anyString(), anyInt())).thenThrow(new RuntimeException("API error"));
+
+        List<Video> result = searchHistoryModel.queryYoutube("test query");
+
+        assertEquals(0, result.size(), "List should be empty when an RuntimeException occurs.");
+    }
+
+    /**
+     * @author Tomas Pereira
      * @throws Exception
      *
      * Test case for when the query leads to a general Exception

@@ -39,11 +39,14 @@ public class YouTube {
         String url = API_URL + "search?part=snippet&q=" + encodedQuery + "&maxResults=" + maxResults + "&order=date&key=" + API_KEY;
         return makeRequest(url);
     }
-    // Get video details by video ID
-    public JsonNode getVideoDetails(String videoId) throws Exception {
-        String url = API_URL + "videos?part=snippet,contentDetails,statistics&id=" + videoId + "&key=" + API_KEY;
-        return makeRequest(url);
-    }
+
+    /**
+     * @author Qian Tonghzhou
+     * Given a channel ID, queries the Youtube API to return the details for that channel
+     * @param channelId The string containing the channel ID to be queried
+     * @return The JSON information for that channel
+     * @throws Exception When the API call is bad
+     */
     // Get channel details by channel ID
     public JsonNode getChannelDetails(String channelId) throws Exception {
         String url = API_URL + "channels?part=snippet,statistics&id=" + channelId + "&key=" + API_KEY;
@@ -64,6 +67,12 @@ public class YouTube {
         return makeRequest(url);
     }
 
+    /**
+     * @author Qian Tongzhou
+     * @param urlString The string URL which corresponds to the API query being made
+     * @return The JSON information corresponding to the API response
+     * @throws Exception When the API call fails
+     */
     private JsonNode makeRequest(String urlString) throws Exception {
         URL url = new URL(urlString);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
