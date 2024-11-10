@@ -166,7 +166,7 @@ public class SearchHistoryModel {
                 String description = channelNode.get("snippet").get("description").asText();
                 String publishedAt = channelNode.get("snippet").get("publishedAt").asText();
                 String country = channelNode.get("snippet").has("country") ? channelNode.get("snippet").get("country").asText() : "N/A";
-                String customUrl = channelNode.get("snippet").has("customUrl") ? channelNode.get("snippet").get("customUrl").asText() : "N/A";
+                String customUrl =  "N/A";
                 String thumbnailUrl = channelNode.get("snippet").get("thumbnails").get("default").get("url").asText();
                 int subscriberCount = channelNode.get("statistics").get("subscriberCount").asInt();
                 boolean hiddenSubscriberCount = channelNode.get("statistics").get("hiddenSubscriberCount").asBoolean();
