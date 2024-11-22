@@ -67,12 +67,6 @@ public class YouTube {
         return makeRequest(url);
     }
 
-    /**
-     * @author Qian Tongzhou
-     * @param urlString The string URL which corresponds to the API query being made
-     * @return The JSON information corresponding to the API response
-     * @throws Exception When the API call fails
-     */
     private JsonNode makeRequest(String urlString) throws Exception {
         URL url = new URL(urlString);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -81,9 +75,8 @@ public class YouTube {
         connection.setRequestMethod("GET");
         connection.setRequestProperty("User-Agent", "Mozilla/5.0");
 
-        // Check the response code
+        // Get the response code
         int responseCode = connection.getResponseCode();
-        if (responseCode == HttpURLConnection.HTTP_OK) { // Success
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             StringBuilder response = new StringBuilder();
             String inputLine;
@@ -96,8 +89,6 @@ public class YouTube {
 
             // Parse the response JSON
             return Json.parse(response.toString());
-        } else {
-            throw new RuntimeException("Request failed with response code: " + responseCode);
-        }
+
     }
 }
