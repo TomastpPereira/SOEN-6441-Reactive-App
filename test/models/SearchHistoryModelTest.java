@@ -115,12 +115,12 @@ class SearchHistoryModelTest {
         // Check All is as Expected
         assertEquals(2, result.size(), "Expected 2 videos in the result list.");
 
-        assertEquals("testVideoId1", result.getFirst().getVideoId());
-        assertEquals("Test Video Title 1", result.getFirst().getTitle());
-        assertEquals("testChannelId1", result.getFirst().getChannelId());
-        assertEquals("Test Channel 1", result.getFirst().getChannelTitle());
-        assertEquals("Test Description 1", result.getFirst().getDescription());
-        assertEquals("https://fakeurl1.com/thumbnail.jpg", result.getFirst().getThumbnail());
+        assertEquals("testVideoId1", result.get(0).getVideoId());
+        assertEquals("Test Video Title 1", result.get(0).getTitle());
+        assertEquals("testChannelId1", result.get(0).getChannelId());
+        assertEquals("Test Channel 1", result.get(0).getChannelTitle());
+        assertEquals("Test Description 1", result.get(0).getDescription());
+        assertEquals("https://fakeurl1.com/thumbnail.jpg", result.get(0).getThumbnail());
 
 
         assertEquals("testVideoId2", result.get(1).getVideoId());
@@ -315,8 +315,8 @@ class SearchHistoryModelTest {
         // Check states
         List<SearchResult> historyToCheck = searchHistoryModel.getSearchHistory();
         assertEquals(MAX_SEARCHES, historyToCheck.size(), "Size should still be Max after the operation");
-        assertEquals("test", historyToCheck.getFirst().query, "New Video queried by 'test' should now be at the head");
-        assertEquals("query1", historyToCheck.getLast().query, "The new tail should be query1 after query0 is removed");
+        assertEquals("test", historyToCheck.get(0).query, "New Video queried by 'test' should now be at the head");
+        assertEquals("query1", historyToCheck.get(0).query, "The new tail should be query1 after query0 is removed");
       
     }
 

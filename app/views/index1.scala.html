@@ -1,0 +1,47 @@
+@import models.Video
+@import models.SearchResult
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>YouTube Video</title>
+    </head>
+    <body>
+
+        <script>
+            const socket = new WebSocket("ws://localhost:9000/ws");
+
+              socket.onopen = function () {
+                  console.log("WebSocket connection established.");
+              };
+
+              socket.onmessage = function (event) {
+                  const searchHistory = JSON.parse(event.data);
+                  const listElement = document.getElementById("search-history");
+
+                  listElement.innerHTML = ""; // Clear existing history
+
+                  // Populate updated search history
+                  searchHistory.forEach(result => {
+                      const item = document.createElement("li");
+                      item.textContent = `Query: ${result.query}, Sentiment: ${result.sentiment}`;
+                      listElement.appendChild(item);
+                  });
+              };
+
+              function sendQuery() {
+                  const query = document.getElementById("query").value;
+                  socket.send(query);
+              }
+        </script>
+
+        <form onsubmit="sendQuery(); return false;">
+            <input id="query" type="text" placeholder="Enter keywords" required>
+            <button type="submit">Search</button>
+        </form>
+
+        <ul id="search-history"></ul>
+
+    </body>
+</html>

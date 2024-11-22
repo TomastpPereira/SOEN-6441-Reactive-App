@@ -3,11 +3,18 @@
   <component name="Play2ExcludedModulesSettings">
     <option name="INFO">
       <map>
+        <entry key="SOEN_6441_Reactive-App">
+          <value>
+            <ProjectSettingsEntry>
+              <option name="playDistrPath" value="$USER_HOME$/AppData/Local/Coursier/cache/v1/https/repo1.maven.org/maven2/com/typesafe/play/play_2.13/2.8.20/play_2.13-2.8.20.jar" />
+            </ProjectSettingsEntry>
+          </value>
+        </entry>
         <entry key="root">
           <value>
             <ProjectSettingsEntry>
-              <option name="sourceDir" value="C:\My Files\GitHub\SOEN-6441-Reactive-App\app" />
-              <option name="confDir" value="C:\Users\26565\OneDrive\桌面\comp6481\SOEN-6441-Reactive-App\app" />
+              <option name="sourceDir" value="C:\Users\26565\OneDrive\桌面\comp6481\SOEN-6441-Reactive-App\app" />
+              <option name="confDir" value="C:\My Files\GitHub\SOEN-6441-Reactive-App\app" />
               <option name="templateImports">
                 <list>
                   <option value="_root_.play.twirl.api.TwirlFeatureImports._" />
@@ -38,6 +45,43 @@
                 </list>
               </option>
               <option name="uri" value="/C:/Users/26565/OneDrive/桌面/comp6481/SOEN-6441-Reactive-App" />
+            </ProjectSettingsEntry>
+          </value>
+        </entry>
+        <entry key="soen-6441-reactive-app">
+          <value>
+            <ProjectSettingsEntry>
+              <option name="confDir" value="C:\My Files\GitHub\SOEN-6441-Reactive-App\app" />
+              <option name="templateImports">
+                <list>
+                  <option value="_root_.play.twirl.api.TwirlFeatureImports._" />
+                  <option value="_root_.play.twirl.api.TwirlHelperImports._" />
+                  <option value="_root_.play.twirl.api.Html" />
+                  <option value="_root_.play.twirl.api.JavaScript" />
+                  <option value="_root_.play.twirl.api.Txt" />
+                  <option value="_root_.play.twirl.api.Xml" />
+                  <option value="models._" />
+                  <option value="controllers._" />
+                  <option value="play.api.i18n._" />
+                  <option value="views.xml._" />
+                  <option value="play.api.templates.PlayMagic._" />
+                  <option value="java.lang._" />
+                  <option value="java.util._" />
+                  <option value="play.core.j.PlayMagicForJava._" />
+                  <option value="play.mvc._" />
+                  <option value="play.api.data.Field" />
+                  <option value="play.data._" />
+                  <option value="play.core.j.PlayFormsMagicForJava._" />
+                  <option value="scala.jdk.CollectionConverters._" />
+                </list>
+              </option>
+              <option name="routesImports">
+                <list>
+                  <option value="controllers.Assets.Asset" />
+                  <option value="play.libs.F" />
+                </list>
+              </option>
+              <option name="uri" value="/C:/My%20Files/GitHub/SOEN-6441-Reactive-App" />
             </ProjectSettingsEntry>
           </value>
         </entry>
