@@ -26,9 +26,6 @@
 /coursier/cache/
 
 # Play-specific files
-/conf/application.conf.orig
-/conf/routes.bak
-/conf/*.secret
 /logs/
 *.pid
 *.log
